@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.ebc.loteriamulti.ui.theme.LoteriaMultiTheme
+import com.ebc.loteriamulti.views.GameNavController
 import com.ebc.loteriamulti.views.navviews.MainView
 
 class MainActivity : ComponentActivity() {
@@ -21,7 +22,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             LoteriaMultiTheme {
-                MainView(navController = rememberNavController())
+                GameNavController()
             }
         }
     }

@@ -62,5 +62,4 @@ fun LoteriaView(navController: NavHostController = rememberNavController()) {
             }
         }
     }
-
 }

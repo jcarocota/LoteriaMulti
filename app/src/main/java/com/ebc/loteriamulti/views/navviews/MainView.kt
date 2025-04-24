@@ -54,7 +54,7 @@ fun MainView(navController: NavHostController) {
             GameOption(
                 idRaw = R.raw.lottie_loteria,
                 label = stringResource(R.string.lottery),
-                onClick = { }
+                onClick = { navController.navigate("loteria")}
             )
             GameOption(
                 idRaw = R.raw.lottie_adivina,
