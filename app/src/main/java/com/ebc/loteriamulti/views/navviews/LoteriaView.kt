@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,10 +24,14 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.ebc.loteriamulti.R
+import com.ebc.loteriamulti.viewmodel.LoteriaViewModel
 
 @Preview(showBackground = true)
 @Composable
-fun LoteriaView(navController: NavHostController = rememberNavController()) {
+fun LoteriaView(
+    navController: NavHostController = rememberNavController(),
+    viewModel: LoteriaViewModel = LoteriaViewModel()
+) {
     val numerosPrueba: MutableList<Int> = mutableListOf(9, 50, 21, 7, 42, 1)
 
     Column(
@@ -37,27 +42,37 @@ fun LoteriaView(navController: NavHostController = rememberNavController()) {
         horizontalAlignment = Alignment.CenterHorizontally
 
     ) {
-        Button(onClick = {}) {
-            Text(text = stringResource(R.string.generate_numbers))
-        }
 
-        LazyRow(
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier.padding(top = 16.dp)
-        ) {
-            itemsIndexed(numerosPrueba) {
-                index, item ->
-                Box(
-                    contentAlignment = Alignment.Center,
-                    modifier = Modifier
-                        .size(50.dp)
-                        .background(color = Color.Red, shape = CircleShape)
+        if(viewModel.isLoading.value) {
+            CircularProgressIndicator()
+        } else {
+            Button(onClick = {}) {
+                Text(text = stringResource(R.string.generate_numbers))
+            }
+
+            viewModel.errorMessage.value?.let { error ->
+                Text(text = error, color = Color.Red)
+            }
+
+            if(viewModel.numeros.isNotEmpty()) {
+                LazyRow(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    modifier = Modifier.padding(top = 16.dp)
                 ) {
-                    Text(
-                        text = item.toString(),
-                        color = Color.White,
-                        fontWeight = FontWeight.Black
-                    )
+                    itemsIndexed(viewModel.numeros) { index, item ->
+                        Box(
+                            contentAlignment = Alignment.Center,
+                            modifier = Modifier
+                                .size(50.dp)
+                                .background(color = Color.Red, shape = CircleShape)
+                        ) {
+                            Text(
+                                text = item.toString(),
+                                color = Color.White,
+                                fontWeight = FontWeight.Black
+                            )
+                        }
+                    }
                 }
             }
         }
