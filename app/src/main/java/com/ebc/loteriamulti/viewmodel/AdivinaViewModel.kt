@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.ebc.loteriamulti.network.ApiClient
 import com.ebc.loteriamulti.network.JuegoService
 import kotlinx.coroutines.launch
+import java.sql.SQLException
 
 class AdivinaViewModel: ViewModel() {
     private val adivinaService = ApiClient.retrofit.create(JuegoService::class.java)
@@ -17,6 +18,7 @@ class AdivinaViewModel: ViewModel() {
 
     fun verificar() {
         val numero = inputNumber.value.toIntOrNull()
+
         if(numero == null) {
             errorMessage.value = "Ingresa un valor correcto (0-10)"
             return
@@ -29,12 +31,13 @@ class AdivinaViewModel: ViewModel() {
             try {
                 val resNum = adivinaService.verificarIntento(numero)
                 resultado.value = resNum
-            } catch (e: Exception) {
-                errorMessage.value = e.message ?: "Falló algo y no sé que es"
+            } catch (e: SQLException) {
+                errorMessage.value = e.message ?: "Hubo un fallo de sql"
+            } catch (e2: Exception) {
+                errorMessage.value = e2.message ?: "Falló algo y no sé que es"
             } finally {
-                isLoading.value = false
+                    isLoading.value = false
             }
         }
     }
-
 }
