@@ -46,7 +46,7 @@ fun LoteriaView(
         if(viewModel.isLoading.value) {
             CircularProgressIndicator()
         } else {
-            Button(onClick = {}) {
+            Button(onClick = {viewModel.generarNumeros() }) {
                 Text(text = stringResource(R.string.generate_numbers))
             }
 
