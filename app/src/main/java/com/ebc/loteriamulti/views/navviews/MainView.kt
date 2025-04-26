@@ -37,12 +37,12 @@ fun MainView(navController: NavHostController) {
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
+        /*Text(
             text = stringResource(R.string.main_view_tittle),
             fontSize = 30.sp,
             fontWeight = FontWeight.Bold,
             color = colorResource(R.color.purple_700)
-        )
+        )*/
         Row(
             modifier = Modifier
                 .fillMaxSize()
