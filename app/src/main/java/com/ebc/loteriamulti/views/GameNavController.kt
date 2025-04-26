@@ -4,7 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.ebc.loteriamulti.viewmodel.AdivinaViewModel
 import com.ebc.loteriamulti.viewmodel.LoteriaViewModel
+import com.ebc.loteriamulti.views.navviews.AdivinaView
 import com.ebc.loteriamulti.views.navviews.LoteriaView
 import com.ebc.loteriamulti.views.navviews.MainView
 
@@ -13,6 +15,7 @@ fun GameNavController() {
     val navController = rememberNavController()
 
     val loteriaViewModel: LoteriaViewModel = LoteriaViewModel()
+    val adivinaViewModel: AdivinaViewModel = AdivinaViewModel()
 
     NavHost(navController = navController, startDestination = "main") {
         composable("main") {
@@ -20,6 +23,9 @@ fun GameNavController() {
         }
         composable("loteria") {
             LoteriaView(navController, loteriaViewModel)
+        }
+        composable("adivina") {
+            AdivinaView(navController, adivinaViewModel)
         }
     }
 }
