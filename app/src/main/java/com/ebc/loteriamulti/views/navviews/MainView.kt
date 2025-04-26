@@ -45,10 +45,11 @@ fun MainView(navController: NavHostController) {
         )
         Row(
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxSize()
                 .padding(16.dp)
                 .align(Alignment.CenterHorizontally),
-            horizontalArrangement = Arrangement.SpaceEvenly
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.CenterVertically
 
         ) {
             GameOption(
@@ -59,7 +60,7 @@ fun MainView(navController: NavHostController) {
             GameOption(
                 idRaw = R.raw.lottie_adivina,
                 label = stringResource(R.string.guess_number),
-                onClick = { }
+                onClick = { navController.navigate("adivina") }
             )
 
         }
