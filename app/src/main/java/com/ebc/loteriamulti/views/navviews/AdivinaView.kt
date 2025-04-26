@@ -35,8 +35,9 @@ fun AdivinaView(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         OutlinedTextField(
-            value = "Pruebas",
-            onValueChange = { },
+            value = viewModel.inputNumber.value,
+            //Recuerda: it es la variable auxiliar default de este callback
+            onValueChange = { viewModel.inputNumber.value = it },
             label = { Text("Dame un número") },
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Number
@@ -63,7 +64,10 @@ fun AdivinaView(
         }
 
         viewModel.resultado.value?.let {
-            Text(text = it, modifier = Modifier.padding(top = 16.dp))
+            Text(text = it,
+                modifier = Modifier
+                    .padding(top = 16.dp)
+                    .align(Alignment.CenterHorizontally))
         }
     }
 }
