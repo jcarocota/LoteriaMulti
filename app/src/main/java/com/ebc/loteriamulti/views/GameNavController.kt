@@ -8,10 +8,12 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.ebc.loteriamulti.viewmodel.AdivinaViewModel
 import com.ebc.loteriamulti.viewmodel.LoteriaViewModel
@@ -36,8 +38,17 @@ fun GameNavController() {
             .systemBarsPadding(),
         scaffoldState = scaffoldState,
         topBar = {
+            val backStackEntry by navController.currentBackStackEntryAsState()
+            val currentRoute = backStackEntry?.destination?.route
+
+            val appBarTitle = when (currentRoute) {
+                "loteria" -> "Lotería clásica"
+                "adivina" -> "Adivina el número"
+                else -> "Loterías y Más"
+            }
+
             TopAppBar(
-                title = { Text("Perrito") }
+                title = { Text(text = appBarTitle) }
             )
         }
     ) {
